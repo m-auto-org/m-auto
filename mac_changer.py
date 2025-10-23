@@ -13,12 +13,33 @@ def ensure_venv():
     if str(sys.executable).endswith("venv/bin/python3"):
         return  # Already running in venv, continue normally
     
-    # Check if venv exists
+    # Check if venv exists, create it if it doesn't
     if not venv_python.exists():
-        print(f"ERROR: Virtual environment not found!")
-        print(f"Expected location: {venv_python}")
-        print("Please ensure the 'venv' directory exists in the same folder as this script.")
-        sys.exit(1)
+        print(f"Virtual environment not found at {venv_python}")
+        print("Creating virtual environment automatically...")
+        
+        try:
+            # Create virtual environment
+            import subprocess
+            result = subprocess.run([sys.executable, '-m', 'venv', str(script_dir / 'venv')], 
+                                  capture_output=True, text=True, check=True)
+            print("✅ Virtual environment created successfully!")
+            
+            # Install required packages
+            print("Installing required packages (pyshark)...")
+            pip_path = script_dir / 'venv' / 'bin' / 'pip'
+            result = subprocess.run([str(pip_path), 'install', '--no-user', 'pyshark'], 
+                                  capture_output=True, text=True, check=True)
+            print("✅ Required packages installed successfully!")
+            
+        except subprocess.CalledProcessError as e:
+            print(f"ERROR: Failed to create virtual environment!")
+            print(f"Command: {' '.join(e.cmd)}")
+            print(f"Error output: {e.stderr}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"ERROR: Unexpected error creating virtual environment: {e}")
+            sys.exit(1)
     
     # Try to switch to venv Python
     try:
