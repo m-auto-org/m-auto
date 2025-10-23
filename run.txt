@@ -1,0 +1,18 @@
+// socks 5 proxy
+sudo ./run_proxy/quiet_socks_proxy.sh
+
+// change mac
+chmod +x change_mac.sh
+sudo ./change_mac.sh <new-mac-address>
+
+// change mac from wireshark arp capture
+sudo python3 mac_changer.py capture.pcapng en0
+
+// run bettercap disrupt
+sudo ./disrupt/bettercap_auto.sh
+
+// no sleep
+sudo pmset -a sleep 0; sudo pmset -b disablesleep 1
+
+// back to normal
+sudo pmset -a sleep 1; sudo pmset -b disablesleep 0
