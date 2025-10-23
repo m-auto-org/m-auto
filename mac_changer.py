@@ -2,9 +2,7 @@
 
 import os
 import sys
-import subprocess
 from pathlib import Path
-from typing import List, Set
 
 # Auto-detect and use venv if not already running in it
 def ensure_venv():
@@ -35,7 +33,9 @@ def ensure_venv():
 # Call this at the start
 ensure_venv()
 
-# Import pyshark after ensuring we're in the correct environment
+# Import all other modules after ensuring we're in the correct environment
+import subprocess
+from typing import List, Set
 import pyshark
 
 def load_tested_macs(log_file: str) -> Set[str]:
