@@ -35,7 +35,7 @@ def ensure_venv():
             import subprocess
             result = subprocess.run([sys.executable, '-m', 'venv', str(script_dir / 'venv')], 
                                   capture_output=True, text=True, check=True)
-            print("✅ Virtual environment created successfully!")
+            print("[OK] Virtual environment created successfully!")
             
             # Install required packages
             print("Installing required packages (pyshark)...")
@@ -45,7 +45,7 @@ def ensure_venv():
             
             result = subprocess.run(install_args, 
                                   capture_output=True, text=True, check=True)
-            print("✅ Required packages installed successfully!")
+            print("[OK] Required packages installed successfully!")
             
         except subprocess.CalledProcessError as e:
             print(f"ERROR: Failed to create virtual environment!")
@@ -105,24 +105,31 @@ def find_tshark_windows():
         for path in common_paths:
             tshark_path = Path(drive) / path
             if tshark_path.exists():
-                print(f"✅ Found TShark at: {tshark_path}")
+                print(f"[OK] Found TShark at: {tshark_path}")
                 return str(tshark_path)
     
     return None
+
+# Global variable to store TShark path
+tshark_path = None
 
 def configure_pyshark_windows():
     """
     Configure pyshark to use TShark on Windows by finding it automatically.
     """
+    global tshark_path
     tshark_path = find_tshark_windows()
     
     if tshark_path:
-        # Set the TShark path for pyshark
-        import pyshark.config
-        pyshark.config.tshark_path = tshark_path
+        # Set the TShark path for pyshark config as well (for compatibility)
+        try:
+            import pyshark.config
+            pyshark.config.tshark_path = tshark_path
+        except:
+            pass  # If config doesn't work, we'll pass it directly to FileCapture
         print(f"Configured pyshark to use TShark at: {tshark_path}")
     else:
-        print("⚠️  WARNING: TShark not found on any drive!")
+        print("[WARNING] TShark not found on any drive!")
         print("Please install Wireshark from: https://www.wireshark.org/download.html")
         print("Make sure to include TShark during installation.")
         sys.exit(1)
@@ -136,7 +143,11 @@ def get_mac_addresses(pcapng_file: str) -> Set[str]:
     Extract unique MAC addresses from a pcapng file.
     """
     try:
-        capture = pyshark.FileCapture(pcapng_file, display_filter='eth.src')
+        # Use tshark_path if configured, otherwise let pyshark find it
+        if tshark_path:
+            capture = pyshark.FileCapture(pcapng_file, display_filter='eth.src', tshark_path=tshark_path)
+        else:
+            capture = pyshark.FileCapture(pcapng_file, display_filter='eth.src')
         mac_addresses = set()
         
         for packet in capture:

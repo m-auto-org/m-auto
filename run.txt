@@ -8,6 +8,9 @@ sudo ./change_mac.sh <new-mac-address>
 // change mac from wireshark arp capture
 sudo python3 arp_mac_changer_mac.py capture.pcapng en0
 
+// output mac addresses from pcapng
+sudo python3 arp_mac_lister.py capture.pcapng
+
 // run bettercap disrupt
 sudo ./disrupt/bettercap_auto.sh
 
