@@ -8,6 +8,11 @@ sudo ./change_mac.sh <new-mac-address>
 // change mac from wireshark arp capture
 sudo python3 arp_mac_changer_mac.py capture.pcapng en0
 
+// m auto (tshark → bettercap → mac changer)
+sudo python3 m_auto.py
+sudo python3 m_auto.py --interface en0 --duration 60
+sudo python3 m_auto.py --output my_capture.pcapng --duration 45
+
 // output mac addresses from pcapng
 sudo python3 arp_mac_lister.py capture.pcapng
 
