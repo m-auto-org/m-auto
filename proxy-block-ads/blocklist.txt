@@ -1,0 +1,96 @@
+# Vungle / Liftoff
+*.vungle.com
+logs.ads.vungle.com
+adx.ads.vungle.com
+
+# AppLovin
+*.applovin.com
+sts.applovin.com
+ms4.applovin.com
+
+# Moloco
+*.adsmoloco.com
+*.dsp-api.moloco.com
+*.moloco.com
+noti-asia.adsmoloco.com
+cdn-f.adsmoloco.com
+sdkeventfnt-asia.dsp-api.moloco.com
+sdkopmetrics-asia.dsp-api.moloco.com
+
+# Unity Ads
+*.unity3d.com
+ae.iads.unity3d.com
+cdn.iads.unity3d.com
+gateway.unityads.unity3d.com
+
+# Pangle / TikTok / ByteDance
+*.tiktokcdn.com
+*.pglstatp.com
+*.pangle.io
+*.ibytedtos.com
+*.byteoversea.com
+p16-common-sign.tiktokcdn.com
+p16-sign-sg.tiktokcdn.com
+sf16-static.i18n-pglstatp.com
+ether-pack-sg.pangle.io
+api16-log-sg2.pangle.io
+sf16-muse-va.ibytedtos.com
+v16-ad.byteoversea.com
+
+# Fyber / Inner-Active
+*.inner-active.mobi
+sdk-events.inner-active.mobi
+
+# App Analytics
+*.app-analytics-services.com
+app-analytics-services.com
+
+# Google DoubleClick / AdMob
+*.doubleclick.net
+*.googlesyndication.com
+googleads.g.doubleclick.net
+pubads.g.doubleclick.net
+pagead2.googlesyndication.com
+
+# Amazon Ad System
+*.amazon-adsystem.com
+c.amazon-adsystem.com
+mdtb-cf-1.ads.aps.amazon-adsystem.com
+
+# App-Ads Services
+*.app-ads-services.com
+odf.app-ads-services.com
+
+# AppLovin Short/Bypass Domain
+*.applvn.com
+ms.applvn.com
+ms4.applvn.com
+
+# Pangle Bypass Domain
+*.pangle-b.io
+api16-access-wf-sg.pangle-b.io
+
+# BidMachine Ad Exchange
+*.bidmachine.io
+api.bidmachine.io
+
+# Adjust Ad Measurement
+*.adjust.com
+view.adjust.com
+
+# Manila Timepieces Ad Server/CDN
+*.manilatimepieces.net
+cdn.manilatimepieces.net
+s.manilatimepieces.net
+
+# Amazingdo Ad Platform
+*.amazingdo.com
+win-asia.amazingdo.com
+
+# Firwinds Ad tracking
+*.firwinds.site
+api.firwinds.site
+
+# SafeDK (AppLovin SDK telemetry)
+*.safedk.com
+edge.safedk.com

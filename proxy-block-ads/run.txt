@@ -1,0 +1,1 @@
+sudo ./proxy-block-ads/quiet_socks_proxy.sh
