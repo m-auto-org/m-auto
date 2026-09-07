@@ -8,9 +8,9 @@ Fully automated flow:
   3. After a configurable duration (default 30s), stop both
   4. Auto-try each captured MAC address:
      - Change MAC → 5s delay → reconnect WiFi
-     - curl http://login.jip.ph/status
-     - If NOT redirected to /login → internet works → stop
-     - If redirected to /login → captive portal → try next MAC
+     - curl http://google.com
+     - If returns 200 → internet works → stop
+     - Otherwise → try next MAC
   5. On success, auto-launch SOCKS5 proxy
 
 Usage:
@@ -254,26 +254,18 @@ def change_mac_address(interface, mac_address, log_file):
         return False
 
 
-def check_internet(interface, retries=2):
-    """Check internet via login.jip.ph/status redirect."""
-    from urllib.parse import urlparse
+def check_internet(interface=None, retries=2):
+    """Check internet by verifying google.com returns HTTP 200."""
     for attempt in range(1, retries + 1):
         try:
             result = subprocess.run(
                 ['curl', '-Ls', '-o', '/dev/null',
-                 '-w', '%{http_code}|%{url_effective}',
+                 '-w', '%{http_code}',
                  '--connect-timeout', '10', '--max-time', '15',
-                 'http://login.jip.ph/status'],
+                 'http://google.com'],
                 capture_output=True, text=True, timeout=20
             )
-            parts = result.stdout.strip().split('|', 1)
-            http_code = parts[0] if len(parts) > 0 else ''
-            final_url = parts[1] if len(parts) > 1 else ''
-            parsed_path = urlparse(final_url).path
-
-            if parsed_path.rstrip('/') == '/login':
-                return False
-            elif http_code == '200' and final_url:
+            if result.returncode == 0 and result.stdout.strip() == '200':
                 return True
         except Exception:
             pass
