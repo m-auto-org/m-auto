@@ -1,6 +1,14 @@
 // socks 5 proxy
 sudo ./run_proxy/quiet_socks_proxy.sh
 
+// keep pinging
+chmod +x keep_pinging/keep_pinging.sh
+./keep_pinging/keep_pinging.sh
+./keep_pinging/keep_pinging.sh start
+./keep_pinging/keep_pinging.sh stop
+./keep_pinging/keep_pinging.sh status
+./keep_pinging/keep_pinging.sh logs
+
 // change mac
 chmod +x change_mac.sh
 sudo ./change_mac.sh <new-mac-address>
